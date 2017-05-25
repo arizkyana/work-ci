@@ -26,21 +26,50 @@ class Welcome extends CI_Controller
      */
 
     private $signer;
+    private $server;
+    private $storage;
 
 
     public function __construct()
     {
         parent::__construct();
         $this->signer = new Sha256();
+        $dsn = "mysql:dbname=work-ci;host=localhost";
+        $username = "root";
+        $password = "12341234";
+
+        Autoloader::register();
+
+        $this->storage = new OAuth2\Storage\Pdo(array(
+            'dsn' => $dsn,
+            'username' => $username,
+            'password' => $password
+        ));
+
+        $this->server = new OAuth2\Server($this->storage, array(
+            'always_issue_new_refresh_token' => true,
+            'refresh_token_lifetime'         => 2419200,
+        ));
+
+        // Add the "Client Credentials"
+        $this->server->addGrantType(new OAuth2\GrantType\ClientCredentials($this->storage));
+
+        // Add the "Authorization Code"
+        $this->server->addGrantType(new OAuth2\GrantType\AuthorizationCode($this->storage));
+
+
     }
 
     public function index()
     {
-        $this->load->view('welcome_message');
+//        $this->load->view('welcome_message');
+        $this->config->load('Resource');
+        echo json_encode($this->config->item('dsn'));
 
     }
 
-    private function _generate_token(){
+    private function _generate_token()
+    {
 
         $token = (new Builder())->setIssuer('http://example.com')// Configures the issuer (iss claim)
         ->setAudience('http://example.org')// Configures the audience (aud claim)
@@ -49,8 +78,9 @@ class Welcome extends CI_Controller
         ->setNotBefore(time() + 60)// Configures the time that the token can be used (nbf claim)
         ->setExpiration(time() + 3600)// Configures the expiration time of the token (nbf claim)
         ->set('uid', 1)// Configures a new claim, called "uid"
-        ->sign($this->signer, 'testing')// creates a signature using "testing" as key
-        ->getToken(); // Retrieves the generated token
+        ->set('name', 'agung')
+            ->sign($this->signer, 'testing')// creates a signature using "testing" as key
+            ->getToken(); // Retrieves the generated token
 
         return $token;
     }
@@ -62,37 +92,32 @@ class Welcome extends CI_Controller
         echo $token;
     }
 
-    public function verify_token(){
-        header('Content-type: application/json');
+    public function verify_token()
+    {
+
         $headers = $this->input->request_headers();
 
 
         echo $this->_generate_token()->verify($this->signer, 'testing');
     }
 
-    public function oauth_token(){
-        $dsn = "mysql:dbname=work-ci;host=localhost";
-        $username = "root";
-        $password = "";
+    public function oauth_token()
+    {
 
-        Autoloader::register();
 
-        $storage = new OAuth2\Storage\Pdo(array(
-            'dsn' => $dsn,
-            'username' => $username,
-            'password' => $password
-        ));
 
-        $server = new OAuth2\Server($storage);
 
-        // Add the "Client Credentials"
-        $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
-
-        // Add the "Authorization Code"
-        $server->addGrantType(new OAuth2\GrantType\AuthorizationCode($storage));
 
         // Generate token
-        $server->handleTokenRequest(OAuth2\Request::createFromGlobals())->send();
+        $this->server->handleTokenRequest(OAuth2\Request::createFromGlobals())->send();
     }
 
+    public function test_api(){
+        // Handle a request to a resource and authenticate the access token
+        if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
+            $this->server->getResponse()->send();
+            die;
+        }
+        echo json_encode(array('success' => true, 'message' => 'You accessed my APIs!'));
+    }
 }

@@ -11,6 +11,21 @@ class API_Controller extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        header('Content-type: application/json');
+
+        // load oauth library
+        $this->load->library('oauth');
     }
+
+    protected function token(){
+        $this->oauth->client_credentials();
+    }
+
+    protected function authorize(){
+        $this->oauth->authorize();
+    }
+
+    protected function refresh_token(){
+        $this->oauth->refresh_token();
+    }
+
 }

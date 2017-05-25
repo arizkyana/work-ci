@@ -52,7 +52,7 @@ $config['index_page'] = 'index.php';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -448,12 +448,12 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
+$config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_work_ci';
 $config['csrf_cookie_name'] = 'csrf_work_ci';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('welcome/oauth_token');
+$config['csrf_exclude_uris'] = array('api/rekon/datatables');
 
 /*
 |--------------------------------------------------------------------------
