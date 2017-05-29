@@ -114,7 +114,7 @@ class CI_DB_cubrid_driver extends CI_DB {
 	 * Non-persistent database connection
 	 *
 	 * @param	bool	$persistent
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function db_connect($persistent = FALSE)
 	{
@@ -175,7 +175,7 @@ class CI_DB_cubrid_driver extends CI_DB {
 	 * Execute the query
 	 *
 	 * @param	string	$sql	an SQL query
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	protected function _execute($sql)
 	{

@@ -96,7 +96,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	/**
 	 * ODBC result ID resource returned from odbc_prepare()
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	private $odbc_result;
 
@@ -132,7 +132,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	 * Non-persistent database connection
 	 *
 	 * @param	bool	$persistent
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function db_connect($persistent = FALSE)
 	{
@@ -215,7 +215,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	 * Execute the query
 	 *
 	 * @param	string	$sql	an SQL query
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	protected function _execute($sql)
 	{

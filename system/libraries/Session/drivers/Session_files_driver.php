@@ -58,14 +58,14 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	/**
 	 * File handle
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	protected $_file_handle;
 
 	/**
 	 * File name
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	protected $_file_path;
 

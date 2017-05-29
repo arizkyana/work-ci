@@ -263,7 +263,7 @@ class CI_Email {
 	/**
 	 * SMTP Connection socket placeholder
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	protected $_smtp_connect	= '';
 

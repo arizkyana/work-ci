@@ -16,3 +16,4 @@ class MY_Controller extends CI_Controller
 
 include_once(APPPATH . '/core/Clean_Controller.php');
 include_once(APPPATH . '/core/API_Controller.php');
+include_once(APPPATH . '/core/Admin_Controller.php');

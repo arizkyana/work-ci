@@ -104,7 +104,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	 * Non-persistent database connection
 	 *
 	 * @param	bool	$persistent
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function db_connect($persistent = FALSE)
 	{

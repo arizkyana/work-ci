@@ -53,6 +53,6 @@ $lang['ut_double'] = 'Float'; // can be the same as float
 $lang['ut_string'] = 'String';
 $lang['ut_array'] = 'Array';
 $lang['ut_object'] = 'Object';
-$lang['ut_resource'] = 'Resource';
+$lang['ut_resource'] = 'ResourceModel';
 $lang['ut_null'] = 'Null';
 $lang['ut_notes'] = 'Notes';

@@ -53,14 +53,14 @@ class CI_DB_result {
 	/**
 	 * Connection ID
 	 *
-	 * @var	resource|object
+	 * @var	ResourceModel|object
 	 */
 	public $conn_id;
 
 	/**
 	 * Result ID
 	 *
-	 * @var	resource|object
+	 * @var	ResourceModel|object
 	 */
 	public $result_id;
 

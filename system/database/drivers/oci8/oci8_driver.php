@@ -71,14 +71,14 @@ class CI_DB_oci8_driver extends CI_DB {
 	/**
 	 * Statement ID
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	public $stmt_id;
 
 	/**
 	 * Cursor ID
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	public $curs_id;
 
@@ -228,7 +228,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	 * Non-persistent database connection
 	 *
 	 * @param	bool	$persistent
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function db_connect($persistent = FALSE)
 	{
@@ -270,7 +270,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	 * Execute the query
 	 *
 	 * @param	string	$sql	an SQL query
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	protected function _execute($sql)
 	{
@@ -291,7 +291,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	/**
 	 * Get cursor. Returns a cursor from the database
 	 *
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function get_cursor()
 	{

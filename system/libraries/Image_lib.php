@@ -1429,7 +1429,7 @@ class CI_Image_lib {
 	 *
 	 * @param	string
 	 * @param	string
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function image_create_gd($path = '', $image_type = '')
 	{

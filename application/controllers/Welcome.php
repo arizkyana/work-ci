@@ -63,7 +63,7 @@ class Welcome extends CI_Controller
     public function index()
     {
 //        $this->load->view('welcome_message');
-        $this->config->load('Resource');
+        $this->config->load('ResourceModel');
         echo json_encode($this->config->item('dsn'));
 
     }

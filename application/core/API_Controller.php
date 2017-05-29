@@ -13,19 +13,29 @@ class API_Controller extends MY_Controller
         parent::__construct();
 
         // load oauth library
-        $this->load->library('oauth');
+        $this->load->library('Oauth2');
+
     }
 
     protected function token(){
-        $this->oauth->client_credentials();
+        $this->oauth2->client_credentials();
     }
 
     protected function authorize(){
-        $this->oauth->authorize();
+        $this->oauth2->authorize();
+    }
+
+    protected function authorize_2(){
+        $this->oauth2->authorize_code();
     }
 
     protected function refresh_token(){
-        $this->oauth->refresh_token();
+        $this->oauth2->refresh_token();
+    }
+
+    public function to_json($data = []){
+        header('Content-type: application/json');
+        return json_encode($data);
     }
 
 }

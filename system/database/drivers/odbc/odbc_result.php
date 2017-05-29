@@ -211,7 +211,7 @@ if ( ! function_exists('odbc_fetch_array'))
 	 * Emulates the native odbc_fetch_array() function when
 	 * it is not available (odbc_fetch_array() requires unixODBC)
 	 *
-	 * @param	resource	&$result
+	 * @param	ResourceModel	&$result
 	 * @param	int		$rownumber
 	 * @return	array
 	 */
@@ -244,7 +244,7 @@ if ( ! function_exists('odbc_fetch_object'))
 	 * Emulates the native odbc_fetch_object() function when
 	 * it is not available.
 	 *
-	 * @param	resource	&$result
+	 * @param	ResourceModel	&$result
 	 * @param	int		$rownumber
 	 * @return	object
 	 */

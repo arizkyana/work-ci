@@ -51,14 +51,14 @@ class CI_DB_oci8_result extends CI_DB_result {
 	/**
 	 * Statement ID
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	public $stmt_id;
 
 	/**
 	 * Cursor ID
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	public $curs_id;
 

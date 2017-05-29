@@ -154,14 +154,14 @@ abstract class CI_DB_driver {
 	/**
 	 * Connection ID
 	 *
-	 * @var	object|resource
+	 * @var	object|ResourceModel
 	 */
 	public $conn_id			= FALSE;
 
 	/**
 	 * Result ID
 	 *
-	 * @var	object|resource
+	 * @var	object|ResourceModel
 	 */
 	public $result_id		= FALSE;
 

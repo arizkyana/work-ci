@@ -117,7 +117,7 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 * Database connection
 	 *
 	 * @param	bool	$pooling
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	public function db_connect($pooling = FALSE)
 	{
@@ -184,7 +184,7 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 * Execute the query
 	 *
 	 * @param	string	$sql	an SQL query
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	protected function _execute($sql)
 	{

@@ -97,7 +97,7 @@ class CI_FTP {
 	/**
 	 * Connection ID
 	 *
-	 * @var	resource
+	 * @var	ResourceModel
 	 */
 	protected $conn_id;
 

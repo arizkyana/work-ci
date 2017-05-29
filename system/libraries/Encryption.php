@@ -737,7 +737,7 @@ class CI_Encryption {
 	 *
 	 * @param	string	$cipher	Cipher name
 	 * @param	string	$mode	Encryption mode
-	 * @return	resource
+	 * @return	ResourceModel
 	 */
 	protected function _mcrypt_get_handle($cipher, $mode)
 	{
