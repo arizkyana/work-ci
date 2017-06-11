@@ -31,3 +31,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 ## Bower
 assets/bower_components/
+
+## Config
+application/config/cli/*
+application/config/development/*

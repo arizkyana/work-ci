@@ -12,7 +12,7 @@ $config['dsn'] = array(
 $config['crendentials'] = array(
     'mysql' => array(
         'username' => 'root',
-        'password' => ''
+        'password' => '12341234'
     )
 );
 
