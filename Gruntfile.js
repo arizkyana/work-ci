@@ -9,7 +9,7 @@ module.exports = function(grunt){
                     paths: ['assets/css']
                 },
                 files : {
-                    'assets/css/style.css' : 'assets/less/bootstrap.less'
+                    'assets/css/style.css' : 'assets/less/app.less'
                 }
             }
         },
