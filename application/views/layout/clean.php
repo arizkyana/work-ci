@@ -2,8 +2,10 @@
 <head>
     <title><?php echo $this->config->item('title')?></title>
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
     <!--stylesheet-->
-    <link rel="stylesheet" href="<?php echo bower_url('bootstrap/dist/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo css_url('style.css') ?>" />
 
     <!--end stylesheet-->
 
@@ -33,7 +35,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Welcome to Work-CI</h3>
             <?php $this->load->view($content); ?>
         </div>
     </div>

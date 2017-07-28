@@ -11,14 +11,8 @@ class Clean_Controller extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->template->set_layout('layout/clean');
     }
 
-    public function set_content($view, $js_files = [], $css_files = [], $js_bower_files = [], $css_bower_files = []){
-        $data['content'] = $view;
-        $data['js_files'] = $js_files;
-        $data['css_files'] = $css_files;
-        $data['js_bower_files'] = $js_bower_files;
-        $data['css_bower_files'] = $css_bower_files;
-        $this->load->view('layout/clean', $data);
-    }
 }
