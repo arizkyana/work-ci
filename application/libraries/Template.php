@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Lenovo
+ * User: agungrizkyana
  * Date: 5/17/2017
  * Time: 9:43 AM
  */
@@ -16,7 +16,11 @@ class Template
         $this->CI =& get_instance();
     }
 
-    public function set_layout($layout){
+    public function set_js(){
+
+    }
+
+    public function set_css(){
 
     }
 

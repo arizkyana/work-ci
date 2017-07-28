@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Clean Layout | Codeigniter</title>
+    <title><?php echo $this->config->item('title')?></title>
 
     <!--stylesheet-->
     <link rel="stylesheet" href="<?php echo bower_url('bootstrap/dist/css/bootstrap.min.css') ?>">

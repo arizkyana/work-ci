@@ -23,7 +23,7 @@ class Oauth2
     {
         $this->ci =& get_instance();
 
-        $this->ci->config->load('Oauth2');
+        $this->ci->config->load('oauth2');
 
         Autoloader::register();
 
