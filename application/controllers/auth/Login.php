@@ -14,7 +14,57 @@ class Login extends Clean_Controller
         parent::__construct();
     }
 
-    public function index(){
-        $this->template->generate('auth/login');
+    public function index()
+    {
+        if (isset($this->session->userdata('user')->username)) {
+            redirect('dashboard');
+        }
+
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+
+        if ($username && $password) {
+            $user = $this->login($username, $password);
+
+            if (empty($user)) {
+                alert('danger', 'Login Failed!', 'User not found');
+                redirect('auth/login');
+            } else {
+
+                $this->session->set_userdata('user', $user);
+
+                redirect('dashboard');
+            }
+
+        } else {
+
+            $this->template->generate('auth/login');
+        }
+
     }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('auth/login');
+    }
+
+
+    private function login($username, $password)
+    {
+        $user = $this->db->get_where('auth_users', [
+            'username' => $username,
+        ])->row();
+
+        if (!empty($user)) {
+            // check password
+            $pass = $this->passwordhash->CheckPassword($password, $user->password);
+            if (!$pass) return null;
+        } else {
+            return null;
+        }
+        return $user;
+    }
+
+
 }

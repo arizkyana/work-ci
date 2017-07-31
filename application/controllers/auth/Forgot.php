@@ -12,10 +12,29 @@ class Forgot extends Clean_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('form_validation');
     }
 
-    public function index(){
-        $this->template->generate('auth/forgot');
+    public function index()
+    {
+
+        $email = $this->input->post('email');
+
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+        if ($email) {
+            if ($this->form_validation->run()) {
+                alert('success', 'Request Success!', 'Please Check Your Email');
+                redirect('auth/forgot');
+            } else {
+                alert('danger', 'Request Failed!', 'Sorry We Can\'t Accept Your Request');
+                $this->template->generate('auth/forgot');
+            }
+        } else {
+            $this->template->generate('auth/forgot');
+        }
+
+
     }
 
 }

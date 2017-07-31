@@ -1,10 +1,11 @@
 <div style="width: 50%; margin: 0 auto;">
     <h2 class="text-center">Forgot Password</h2>
     <br />
-    <form action="" method="post">
+    <?php echo validation_errors(); ?>
+    <?php echo form_open(); ?>
         <div class="form-group">
             <label for="">Email</label>
-            <input type="text" class="form-control" name="email"  />
+            <input type="email" class="form-control" name="email" value="<?php echo set_value('email')?>" autofocus />
         </div>
 
         <div class="form-group">

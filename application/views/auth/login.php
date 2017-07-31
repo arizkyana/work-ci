@@ -1,21 +1,21 @@
 <div style="width: 50%; margin: 0 auto;">
     <h2 class="text-center">Sign In</h2>
     <br />
-    <form action="" method="post">
+    <form method="post">
 
         <div class="form-group">
             <div class="row">
-                <label class="col-md-3">Email</label>
+                <label class="col-md-3" for="username">Username</label>
                 <div class="col-md-9">
-                    <input type="email" class="form-control " name="email" />
+                    <input type="username" class="form-control " name="username" autofocus />
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <label class="col-md-3">Password</label>
+                <label class="col-md-3" for="password">Password</label>
                 <div class="col-md-9">
-                    <input type="password" class="form-control" />
+                    <input type="password" class="form-control" name="password" />
                 </div>
             </div>
         </div>

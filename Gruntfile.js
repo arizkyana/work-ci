@@ -15,7 +15,7 @@ module.exports = function(grunt){
         },
         watch: {
             files : ['assets/less/*.less', 'assets/less/mixins/*.less', 'assets/style.css'],
-            task: ['less']
+            task: ['less:development']
         }
     });
 
