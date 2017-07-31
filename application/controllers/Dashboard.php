@@ -14,6 +14,8 @@ class Dashboard extends Admin_Controller
     }
 
     public function index(){
+
+        $this->template->set_title('Dashboard');
         $this->template->generate('dashboard/main');
     }
 

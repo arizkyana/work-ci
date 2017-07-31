@@ -18,10 +18,17 @@ class Template
     protected $bower_js = [];
     protected $bower_css = [];
 
+    protected $title = "";
+
     protected $layout = "";
     public function __construct()
     {
         $this->CI =& get_instance();
+    }
+
+    public function set_title($title) {
+        $this->title = $title;
+        return $this;
     }
 
     public function set_layout($layout_name){
@@ -55,6 +62,7 @@ class Template
         $data['css_files'] = $this->css;
         $data['js_bower_files'] = $this->bower_js;
         $data['css_bower_files'] = $this->bower_css;
+        $data['title'] = $this->title;
         $this->CI->load->view($this->layout, $data);
     }
 
