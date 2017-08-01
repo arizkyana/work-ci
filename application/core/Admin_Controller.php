@@ -12,6 +12,8 @@ class Admin_Controller extends MY_Controller
     {
         parent::__construct();
 
+        $this->load->library('Auth');
+
         if (!$this->session->has_userdata('user')) {
             redirect('auth/login');
         }

@@ -1,2 +1,3 @@
+<div id="container">
 
-<?php print_r($_SESSION)?>
+</div>

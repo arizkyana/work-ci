@@ -2,9 +2,9 @@
 
 /**
  * Created by PhpStorm.
- * User: agungrizkyana
- * Date: 5/26/2017
- * Time: 2:50 PM
+ * User: Lenovo
+ * Date: 8/1/2017
+ * Time: 2:31 PM
  */
 
 use Zend\Permissions\Acl\Acl;
@@ -13,28 +13,52 @@ use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 class Auth
 {
-    private $acl;
-    private $ci;
+    protected $ci;
+    protected $acl;
 
-    public function __construct()
+    function __construct()
     {
         $this->ci =& get_instance();
-
-        // instance ACL
-        $this->acl = new Acl();
-
+        $this->init();
     }
 
     /**
-     * Fetch ACL data (role, resource, user) from database
+     * @return mixed
      */
-    private function init(){
-
+    public function getAcl()
+    {
+        return $this->acl;
     }
 
-    public function addRole(){
 
+    function init(){
+        $this->acl = new Acl();
+
+        // query roles
+        $roles = $this->ci->db->get('auth_roles')->result();
+
+        foreach ($roles as $key => $role) {
+           $this->acl->addRole(new Role($role->name));
+        }
+
+        // query resources
+        $resources = $this->ci->db->get('auth_resources')->result();
+        foreach ($resources as $key => $resource) {
+            $this->acl->addResource(new Resource($resource->name));
+        }
+
+        // map resources
+        $this->ci->db->select('auth_roles.name as role_name, auth_resources.name as resource_name, auth_resources.uri, auth_map_resources.access');
+        $this->ci->db->join('auth_roles', 'auth_map_resources.role_id = auth_roles.id', 'left');
+        $this->ci->db->join('auth_resources', 'auth_map_resources.resource_id = auth_resources.id', 'left');
+        $map_resources = $this->ci->db->get('auth_map_resources')->result();
+        foreach ($map_resources as $key => $map) {
+            if ($map->access == 1) {
+                $this->acl->allow($map->role_name, $map->resource_name);
+            } else {
+                $this->acl->deny($map->role_name, $map->resource_name);
+            }
+        }
     }
-
 
 }

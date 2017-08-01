@@ -4245,7 +4245,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-fixed-top {
   top: 0;
-  border-width: 0 0 1px;
+  border-width: 0 0 0.1px;
 }
 .navbar-fixed-bottom {
   bottom: 0;
@@ -5866,7 +5866,6 @@ body {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  padding-top: 60px;
 }
 #wrapper.toggled #sidebar-wrapper {
   width: 250px;
@@ -5874,7 +5873,6 @@ body {
 #page-content-wrapper {
   width: 100%;
   position: absolute;
-  padding-top: 60px !important;
 }
 #wrapper.toggled #page-content-wrapper {
   position: absolute;

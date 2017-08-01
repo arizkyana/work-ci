@@ -35,45 +35,6 @@
 <body>
 <div id="wrapper" class="toggled">
 
-    <?php
-    // fake menu
-
-    $_menus = [
-        [
-            'id' => 1,
-            'name' => 'Dashboard',
-            'link' => 'dashboard',
-            'children' => [],
-        ],
-        [
-            'id' => 2,
-            'name' => 'User Management',
-            'link' => '',
-            'children' => [
-                [
-                    'id' => 3,
-                    'name' => 'Role',
-                    'link' => 'user/role',
-                    'children' => []
-                ],
-                [
-                    'id' => 4,
-                    'name' => 'Resource',
-                    'link' => 'user/resource',
-                    'children' => []
-                ]
-            ]
-        ]
-    ];
-
-    function create_menu($menus){
-        foreach($menus as $key => $val) {
-            echo "<li><a href='".$val['link']."'>".$val['name']."</a></li>";
-        }
-    }
-
-    ?>
-
     <!-- sidebar-wrapper -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -83,31 +44,81 @@
                 </a>
             </li>
 
-            <?php foreach ($_menus as $key => $val) : ?>
+            <?php
 
-                <?php if (empty($val['children'])) { ?>
-                    <li><a href="<?php echo $val['link'] ?>"><?php echo $val['name'] ?></a></li>
-                <?php } else { ?>
 
-                <?php } ?>
-            <?php endforeach; ?>
+            function display_menu($menu, $key, $curr_uri)
+            {
+                $uri = "#";
+                if (empty($curr_uri)) $curr_uri = 'dashboard';
+                $has_children = isset($menu['children']) and is_array($menu['children']);
+                $is_allowed = $menu['allow'] ? '' : 'hide';
 
-            <!--            <li>-->
-            <!--                <a href="#"> Dashboard</a>-->
-            <!--            </li>-->
-            <!--            <li data-toggle="collapse" data-target="#user-management">-->
-            <!--                <a href="#">User Management</a>-->
-            <!--            </li>-->
-            <!--            <li class="collapse" id="user-management">-->
-            <!--                <ul>-->
-            <!--                    <li><a href="">tes</a></li>-->
-            <!--                    <li><a href="">tes</a></li>-->
-            <!--                    <li><a href="">tes</a></li>-->
-            <!--                </ul>-->
-            <!--            </li>-->
-            <!--            <li>-->
-            <!--                <a href="#">System Logs</a>-->
-            <!--            </li>-->
+
+                if ($has_children) {
+                    if (isset($menu['uri']) and !empty($menu['uri'])) $uri = site_url($menu['uri']);
+                    echo "<li class='".$is_allowed."' data-toggle='collapse' data-target='#".$key."'><a href='".$uri."'>" . $menu['title'] . "</a></li>";
+                    echo "<li class='collapse' id='" . $key . "'><ul>";
+
+                    foreach ($menu['children'] as $key_child => $menu_child) {
+                        display_menu($menu_child, $key_child,$curr_uri);
+                    }
+
+                    echo "</ul></li>";
+
+                } else {
+                    if (isset($menu['uri']) and !empty($menu['uri'])) $uri = site_url($menu['uri']);
+                    echo "<li class='".$is_allowed."'><a href='".$uri."'>" . $menu['title'] . "</a></li>";
+                }
+
+
+
+            }
+
+            function set_active_menu($menus, $acl, $user, $curr_uri){
+                $_menus = [];
+                $has_children = $has_children = isset($menu['children']) and is_array($menu['children']);
+                foreach ($menus as $key => $val) {
+
+                    $is_allow = false;
+                    $is_active = false;
+
+                    if ($has_children) {
+                        $menus[$key]['children'] = set_active_menu($menus[$key]['children'], $acl, $user, $curr_uri);
+                        foreach ($menus[$key]['children'] as $menu_item){
+
+                        }
+                    }
+
+                    if ($acl->isAllowed($user->role_name, $val['title'])) {
+                        $val['allow'] = true;
+                    } else {
+                        $val['allow'] = false;
+                    }
+
+
+                    if (!empty($val['uri']) and ($curr_uri == $val['uri'])) {
+                        $val['active'] = true;
+                    } else {
+                        $val['active'] = false;
+                    }
+                    array_push($_menus, $val);
+                }
+
+                return $_menus;
+            }
+
+            $curr_uri = $this->uri->uri_string();
+            $this->load->config('navigation');
+            $menus = $this->config->item('navigation');
+
+            $nav = set_active_menu($menus, $this->auth->getAcl(), $this->session->userdata('user'), $curr_uri);
+
+            foreach ($nav as $key => $menu) {
+                display_menu($menu, $key, $curr_uri);
+            }
+
+            ?>
 
         </ul>
     </div>
@@ -115,7 +126,7 @@
 
     <!-- page content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-default" style="position: absolute; top: 0; left:0; right: 0">
+        <nav class="navbar navbar-default navbar-fixed-top" >
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -133,7 +144,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"
+                            <a href="#menu-toggle" class="btn btn-link" id="menu-toggle"
                                style="border:none; padding-top: 1.3em">
                                 <i class="fa fa-align-justify"></i>
                             </a>
@@ -154,7 +165,7 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid" style="padding-top: 20px;">
             <div class="row">
                 <div class="col-lg-12">
                     <h1><?php echo $title; ?></h1>
@@ -162,9 +173,18 @@
                         <li><a href="#">Home</a></li>
                         <li><a class="active" href="<?php echo base_url('dashboard') ?>">Dashboard</a></li>
                     </ol>
-                    <?php $this->load->view($content) ?>
+
+
                 </div>
             </div>
+
+            <pre>
+                <?php
+                   var_dump($nav);
+                ?>
+            </pre>
+
+            <?php $this->load->view($content) ?>
         </div>
     </div>
     <!-- /page-content-wrapper -->

@@ -52,6 +52,8 @@ class Login extends Clean_Controller
 
     private function login($username, $password)
     {
+        $this->db->select('auth_users.*, auth_roles.name as role_name');
+        $this->db->join('auth_roles', 'auth_users.role_id = auth_roles.id', 'left');
         $user = $this->db->get_where('auth_users', [
             'username' => $username,
         ])->row();
